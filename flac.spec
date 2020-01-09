@@ -1,7 +1,7 @@
 Summary: An encoder/decoder for the Free Lossless Audio Codec
 Name: flac
 Version: 1.2.1
-Release: 6.1%{?dist}
+Release: 7%{?dist}
 License: BSD and GPLv2+
 Group: Applications/Multimedia
 Source: http://prdownloads.sourceforge.net/flac/flac-%{version}.tar.gz
@@ -11,6 +11,8 @@ Patch3: flac-1.2.1-hidesyms.patch
 Patch4: flac-1.2.1-tests.patch
 Patch5: flac-1.2.1-cflags.patch
 Patch6: flac-1.2.1-bitreader.patch
+Patch7: flac-1.2.1-cve-2014-8962.patch
+Patch8: flac-1.2.1-cve-2014-9028.patch
 URL: http://flac.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libogg-devel
@@ -47,6 +49,8 @@ will use the Free Lossless Audio Codec.
 %patch4 -p1 -b .tests
 %patch5 -p1 -b .cflags
 %patch6 -p0 -b .bitreader
+%patch7 -p1 -b .cve-2014-8962
+%patch8 -p1 -b .cve-2014-9028
 
 %build
 ./autogen.sh -V
@@ -91,6 +95,10 @@ rm -rf %{buildroot}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Mar 27 2015 Miroslav Lichvar <mlichvar@redhat.com> 1.2.1-7
+- fix buffer overflow when processing ID3v2 metadata (CVE-2014-8962)
+- fix buffer overflow with invalid blocksize (CVE-2014-9028)
+
 * Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 1.2.1-6.1
 - Rebuilt for RHEL 6
 
