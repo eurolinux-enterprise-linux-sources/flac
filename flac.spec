@@ -1,7 +1,7 @@
 Summary: An encoder/decoder for the Free Lossless Audio Codec
 Name: flac
 Version: 1.3.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: BSD and GPLv2+ and GFDL
 Group: Applications/Multimedia
 
@@ -109,6 +109,12 @@ make -C test check FLAC__TEST_LEVEL=0 &> /dev/null
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.3.0-4
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.3.0-3
+- Mass rebuild 2013-12-27
+
 * Mon Jun 03 2013 Miroslav Lichvar <mlichvar@redhat.com> 1.3.0-2
 - fix memory corruption in metaflac (#969259)
 - disable slower assembly code
