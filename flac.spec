@@ -1,7 +1,7 @@
 Summary: An encoder/decoder for the Free Lossless Audio Codec
 Name: flac
 Version: 1.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD and GPLv2+ and GFDL
 Group: Applications/Multimedia
 
@@ -19,6 +19,8 @@ BuildRequires: nasm >= 2.0
 
 Patch1: flac-metaflac_strcat.patch
 Patch2: flac-no_rice_asm.patch
+Patch3: flac-1.3.0-cve-2014-8962.patch
+Patch4: flac-1.3.0-cve-2014-9028.patch
 
 %description
 FLAC stands for Free Lossless Audio Codec. Grossly oversimplified, FLAC
@@ -59,6 +61,8 @@ will use the Free Lossless Audio Codec.
 %setup -q
 %patch1 -p1 -b .metaflac-strcat
 %patch2 -p1 -b .no_rice_asm
+%patch3 -p1 -b .cve-2014-8962
+%patch4 -p1 -b .cve-2014-9028
 
 %build
 # use our libtool to avoid problems with RPATH
@@ -109,6 +113,10 @@ make -C test check FLAC__TEST_LEVEL=0 &> /dev/null
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Mar 27 2015 Miroslav Lichvar <mlichvar@redhat.com> 1.3.0-5
+- fix buffer overflow when processing ID3v2 metadata (CVE-2014-8962)
+- fix buffer overflow with invalid blocksize (CVE-2014-9028)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.3.0-4
 - Mass rebuild 2014-01-24
 
